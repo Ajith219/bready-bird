@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birdy Bird Advanced</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>🐤 Birdy Bird</h2>
+
+<div id="startScreen">
+    <h1>Birdy Bird</h1>
+    <button onclick="startGame()">Start Game</button>
+</div>
+
+<canvas id="gameCanvas" width="400" height="600"></canvas>
+
+<div id="gameOverScreen">
+    <h2>Game Over</h2>
+    <p id="finalScore"></p>
+    <button onclick="restartGame()">Restart</button>
+</div>
+<audio id="jumpSound" src="assets/jump.mp3"></audio>
+<audio id="hitSound" src="assets/hit.mp3"></audio>
+<script src="script.js"></script>
+</body>
+</html>

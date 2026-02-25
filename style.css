@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+    font-family: Arial;
+    background: linear-gradient(#87CEEB, #ffffff);
+}
+
+canvas {
+    border: 3px solid black;
+    background: skyblue;
+    display: none;
+    margin-top: 10px;
+}
+
+/* Start Screen */
+#startScreen {
+    margin-top: 100px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: orange;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Game Over */
+#gameOverScreen {
+    display: none;
+    margin-top: 50px;
+}
