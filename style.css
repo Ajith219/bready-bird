@@ -1,32 +1,40 @@
 body {
+    margin: 0;
+    padding: 0;
     text-align: center;
     font-family: Arial;
     background: linear-gradient(#87CEEB, #ffffff);
 }
 
-canvas {
-    border: 3px solid black;
-    background: skyblue;
-    display: none;
+h2 {
     margin-top: 10px;
 }
 
-/* Start Screen */
-#startScreen {
-    margin-top: 100px;
+/* Center game container */
+#gameCanvas {
+    display: block;
+    margin: 0 auto;
+    border: 3px solid black;
+    background: skyblue;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    background: orange;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-/* Game Over */
+/* Game over screen */
 #gameOverScreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
     display: none;
-    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Make canvas responsive on mobile */
+@media (max-width: 500px) {
+    #gameCanvas {
+        width: 95%;
+        height: auto;
+    }
 }
