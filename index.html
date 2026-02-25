@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Birdy Bird</title>
+
+    <!-- 🔥 important for mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birdy Bird Advanced</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h2>🐤 Birdy Bird</h2>
 
+<!-- Start Screen -->
 <div id="startScreen">
     <h1>Birdy Bird</h1>
     <button onclick="startGame()">Start Game</button>
 </div>
 
-<canvas id="gameCanvas" width="400" height="600"></canvas>
+<!-- Game Canvas -->
+<canvas id="gameCanvas" width="400" height="600" style="display:none;"></canvas>
 
-<div id="gameOverScreen">
+<!-- Game Over -->
+<div id="gameOverScreen" style="display:none;">
     <h2>Karroda</h2>
     <p id="finalScore"></p>
     <button onclick="restartGame()">Restart chey bey</button>
 </div>
+
+<!-- Sounds -->
 <audio id="jumpSound" src="assets/jump.mp3"></audio>
 <audio id="hitSound" src="assets/hit.mp3"></audio>
+
 <script src="script.js"></script>
+
 </body>
 </html>
