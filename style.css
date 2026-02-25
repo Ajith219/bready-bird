@@ -10,15 +10,30 @@ h2 {
     margin-top: 10px;
 }
 
-/* Center game container */
-#gameCanvas {
-    display: block;
-    margin: 0 auto;
-    border: 3px solid black;
-    background: skyblue;
+/* Start screen */
+#startScreen {
+    margin-top: 100px;
 }
 
-/* Game over screen */
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background: orange;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* Canvas styling */
+#gameCanvas {
+    display: block;
+    margin: 10px auto;
+    border: 3px solid black;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Game over popup */
 #gameOverScreen {
     position: fixed;
     top: 50%;
@@ -31,10 +46,10 @@ h2 {
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-/* Make canvas responsive on mobile */
+/* Mobile optimization */
 @media (max-width: 500px) {
     #gameCanvas {
         width: 95%;
         height: auto;
     }
-}
+} 
