@@ -1,8 +1,13 @@
-// ===== Canvas Setup =====
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// ===== Images =====
+// Responsive canvas for mobile
+if (window.innerWidth < 500) {
+    canvas.width = window.innerWidth * 0.9;
+    canvas.height = 500;
+}
+
+// Images
 const birdImg = new Image();
 birdImg.src = "assets/bird.png";
 
@@ -12,40 +17,25 @@ pipeImg.src = "assets/pipe.png";
 const bgImg = new Image();
 bgImg.src = "assets/bg.png";
 
-// ===== Sounds =====
+// Sounds
 const jumpSound = document.getElementById("jumpSound");
 const hitSound = document.getElementById("hitSound");
 
-// ===== Game Variables =====
+// Variables
 let bird, pipes, score, highScore, gameRunning;
 let bgX = 0;
 let canJump = true;
 
 const pipeWidth = 60;
-const gap = 180;   // 🔥 increased gap for bigger bird
+const gap = 180;
 
-// ===== Start Game =====
-function startGame() {
-    document.getElementById("startScreen").style.display = "none";
-    canvas.style.display = "block";
-    init();
-    gameLoop();
-}
-
-// ===== Restart Game =====
-function restartGame() {
-    document.getElementById("gameOverScreen").style.display = "none";
-    init();
-    gameLoop();
-}
-
-// ===== Initialize =====
+// Init game
 function init() {
     bird = {
         x: 60,
         y: 200,
-        width: 70,   // 🔥 bigger bird
-        height: 50,  // 🔥 bigger bird
+        width: 70,
+        height: 50,
         gravity: 0.5,
         velocity: 0,
         jump: -8
@@ -59,7 +49,7 @@ function init() {
     canJump = true;
 }
 
-// ===== Jump Control =====
+// Jump
 function jump() {
     if (!gameRunning) return;
 
@@ -68,28 +58,31 @@ function jump() {
     if (jumpSound) {
         jumpSound.pause();
         jumpSound.currentTime = 0;
-        jumpSound.play().catch(() => {});
+        jumpSound.play().catch(()=>{});
     }
 }
 
-// ===== Keyboard Controls =====
-document.addEventListener("keydown", function (e) {
+// Desktop keyboard
+document.addEventListener("keydown", (e) => {
     if (e.code === "Space" && canJump) {
         jump();
         canJump = false;
     }
 });
 
-document.addEventListener("keyup", function (e) {
+document.addEventListener("keyup", (e) => {
     if (e.code === "Space") {
         canJump = true;
     }
 });
 
-// ===== Mouse / Touch =====
-canvas.addEventListener("click", jump);
+// 📱 Mobile touch control
+canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    jump();
+});
 
-// ===== Create Pipe =====
+// Create pipe
 function createPipe() {
     let height = Math.random() * 250 + 50;
 
@@ -101,26 +94,25 @@ function createPipe() {
     });
 }
 
-// ===== Game Loop =====
+// Game loop
 function gameLoop() {
     if (!gameRunning) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // ===== Background Scroll =====
+    // Background
     bgX -= 1;
     if (bgX <= -canvas.width) bgX = 0;
 
     ctx.drawImage(bgImg, bgX, 0, canvas.width, canvas.height);
     ctx.drawImage(bgImg, bgX + canvas.width, 0, canvas.width, canvas.height);
 
-    // ===== Bird Physics =====
+    // Bird
     bird.velocity += bird.gravity;
     bird.y += bird.velocity;
-
     ctx.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
-    // ===== Pipes =====
+    // Pipes
     for (let i = 0; i < pipes.length; i++) {
         let p = pipes[i];
         p.x -= 3;
@@ -128,7 +120,6 @@ function gameLoop() {
         ctx.drawImage(pipeImg, p.x, 0, pipeWidth, p.top);
         ctx.drawImage(pipeImg, p.x, p.bottom, pipeWidth, canvas.height);
 
-        // Collision detection
         if (
             bird.x < p.x + pipeWidth &&
             bird.x + bird.width > p.x &&
@@ -137,29 +128,24 @@ function gameLoop() {
             endGame();
         }
 
-        // Score update
         if (!p.passed && p.x + pipeWidth < bird.x) {
             score++;
             p.passed = true;
         }
     }
 
-    // Ground collision
     if (bird.y + bird.height >= canvas.height) {
         endGame();
     }
 
-    // New pipes
     if (pipes.length === 0 || pipes[pipes.length - 1].x < 200) {
         createPipe();
     }
 
-    // Remove old pipes
     if (pipes.length > 0 && pipes[0].x < -pipeWidth) {
         pipes.shift();
     }
 
-    // Score display
     ctx.fillStyle = "black";
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 25);
@@ -168,7 +154,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
-// ===== End Game =====
+// Game over
 function endGame() {
     if (!gameRunning) return;
 
@@ -177,10 +163,9 @@ function endGame() {
     if (hitSound) {
         hitSound.pause();
         hitSound.currentTime = 0;
-        hitSound.play().catch(() => {});
+        hitSound.play().catch(()=>{});
     }
 
-    // update high score
     if (score > highScore) {
         highScore = score;
         localStorage.setItem("highScore", highScore);
@@ -191,3 +176,14 @@ function endGame() {
 
     document.getElementById("gameOverScreen").style.display = "block";
 }
+
+// Restart
+function restartGame() {
+    document.getElementById("gameOverScreen").style.display = "none";
+    init();
+    gameLoop();
+}
+
+// Start game automatically
+init();
+gameLoop();
