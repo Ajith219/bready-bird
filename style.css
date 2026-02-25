@@ -10,7 +10,6 @@ h2 {
     margin-top: 10px;
 }
 
-/* Start screen */
 #startScreen {
     margin-top: 100px;
 }
@@ -24,16 +23,15 @@ button {
     cursor: pointer;
 }
 
-/* Canvas styling */
 #gameCanvas {
     display: block;
     margin: 10px auto;
     border: 3px solid black;
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
     height: auto;
 }
 
-/* Game over popup */
 #gameOverScreen {
     position: fixed;
     top: 50%;
@@ -45,11 +43,3 @@ button {
     display: none;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
-
-/* Mobile optimization */
-@media (max-width: 500px) {
-    #gameCanvas {
-        width: 95%;
-        height: auto;
-    }
-} 
